@@ -404,7 +404,11 @@ class RNFirebaseDatabaseReference {
    */
   private void buildDatabaseQueryAtPathAndModifiers(String path, ReadableArray modifiers) {
     FirebaseDatabase firebaseDatabase = RNFirebaseDatabase.getDatabaseForApp(appName, dbURL);
-    query = firebaseDatabase.getReference(path);
+    if (path.equals("//.info/connected")) {
+      query = firebaseDatabase.getReference(".info/connected");
+    } else {
+      query = firebaseDatabase.getReference(path);
+    }
     List<Object> modifiersList = Utils.recursivelyDeconstructReadableArray(modifiers);
 
     for (Object m : modifiersList) {
